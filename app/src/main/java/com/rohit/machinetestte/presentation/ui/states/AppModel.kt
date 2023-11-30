@@ -4,9 +4,11 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import com.rohit.machinetestte.base.domain.entities.Status
+import java.util.UUID
 
 @Stable
 data class AppModel(
+    val id: String = UUID.randomUUID().toString(),
     val appID: Long? = null,
     val fkKidID: Long? = null,
     val kidProfileImage: String? = null,

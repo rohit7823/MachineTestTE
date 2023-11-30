@@ -1,6 +1,19 @@
 package com.rohit.machinetestte.presentation.others
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.pm.ResolveInfo
+import android.net.Uri
+import android.os.Build
 import android.util.Log
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.UiComposable
 import com.google.gson.JsonParseException
 import com.rohit.machinetestte.base.utility.RestResponse
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -63,4 +76,45 @@ suspend fun <T> Call<T>.handleResponse(): RestResponse<T> = try {
 } catch (ex: Exception) {
     Log.d("TESTING", "Exception: ${ex.message}")
     RestResponse.Error(message = ex.message)
+}
+
+
+fun <T> Any.castListToRequiredTypes(): List<T>? {
+    val items = mutableListOf<T>()
+
+    if (this !is List<*>) return null
+
+    forEach { item -> item?.let { items.add(it as T) } }
+
+    return items.toList()
+}
+
+
+@Composable
+fun <T> MutableState<T>.OnEffect(
+    intentionalCode: suspend (T) -> Unit,
+    clearance: () -> T,
+) {
+    LaunchedEffect(key1 = value) {
+        value?.let {
+            intentionalCode(it)
+            value = clearance()
+        }
+    }
+}
+
+@UiComposable
+@Composable
+fun rememberSnackbarHostState() = remember { SnackbarHostState() }
+
+fun Context.openApp(packageName: String) {
+    val pMgr = packageManager
+    val launchIntent = pMgr.getLaunchIntentForPackage(packageName)
+    if(launchIntent != null) {
+        startActivity(launchIntent)
+    } else {
+        throw IllegalArgumentException("$packageName not found!")
+    }
+
+
 }

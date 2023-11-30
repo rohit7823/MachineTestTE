@@ -5,7 +5,7 @@ import com.rohit.machinetestte.base.domain.entities.App
 import com.rohit.machinetestte.presentation.ui.states.AppModel
 
 fun App.toUiModel(): AppModel = AppModel(
-    appID, fkKidID, kidProfileImage,
-    appName, appIcon, appPackageName,
+    appID = appID, fkKidID = fkKidID, kidProfileImage = kidProfileImage,
+    appName = appName, appIcon = appIcon, appPackageName = appPackageName,
     status = mutableStateOf(checkStatus())
 )

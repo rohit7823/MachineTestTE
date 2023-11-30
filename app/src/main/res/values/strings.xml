@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MachineTestTE</string>
+    <string name="suvojit">Suvojit</string>
+    <string name="connected">Connected</string>
+    <string name="applications">Applications</string>
+    <string name="settings">Settings</string>
+    <string name="search_here">Search by app name..</string>
+    <string name="not_connected">Not connected</string>
+    <string name="no_ui_specified">No UI specified.</string>
 </resources>

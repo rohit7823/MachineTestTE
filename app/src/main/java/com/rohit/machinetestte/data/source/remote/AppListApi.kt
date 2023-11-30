@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface AppListApi {
 
-    @POST("/v1/apps/list")
+    @POST("/g-mee-api/api/v1/apps/list")
     @FormUrlEncoded
     fun apps(
         @Field("kid_id") kId: String
